@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Body Treatment App</title>
+  <!-- Load a modern sans-serif font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" 
+    rel="stylesheet">
+  <style>
+    /* Base styles with modern typography */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    /* Dark mode styling */
+    body.dark-mode {
+      background-color: #212121;
+      color: #f0f0f0;
+    }
+    
+    /* Header Styling with Animated Text and theme toggle */
+    header {
+      background: linear-gradient(45deg, #00bcd4, #4caf50, #ffeb3b);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      height: 150px;
+      animation: gradient-animation 3s ease-in-out infinite;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin: 0;
+      animation: text-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes gradient-animation {
+      0% {
+        background: linear-gradient(45deg, #00bcd4, #4caf50, #ffeb3b);
+      }
+      50% {
+        background: linear-gradient(45deg, #ffeb3b, #4caf50, #00bcd4);
+      }
+      100% {
+        background: linear-gradient(45deg, #00bcd4, #4caf50, #ffeb3b);
+      }
+    }
+
+    @keyframes text-glow {
+      0% {
+        text-shadow: 0 0 5px #ffeb3b, 0 0 10px #ffeb3b, 0 0 15px #ffeb3b;
+      }
+      50% {
+        text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50, 0 0 30px #4caf50;
+      }
+      100% {
+        text-shadow: 0 0 5px #ffeb3b, 0 0 10px #ffeb3b, 0 0 15px #ffeb3b;
+      }
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+    }
+
+    .main {
+      padding: 20px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .body-parts {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .body-part-btn {
+      padding: 15px;
+      text-align: center;
+      background-color: #007BFF;
+      color: white;
+      font-size: 1.25rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    .body-part-btn:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    body.dark-mode form {
+      background: #424242;
+    }
+
+    label {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+    
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+    
+    select {
+      padding: 8px;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    a {
+      color: #007BFF;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+    
+    .result {
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #e0f7fa;
+      border-radius: 10px;
+      max-width: 500px;
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .back-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      background-color: #0056b3;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      header {
+        height: 120px;
+        padding: 15px;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+      .body-part-btn {
+        font-size: 1rem;
+        padding: 12px;
+      }
+      button {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+    }
+    
+    /* Dark Mode Toggle Button Styles */
+    .theme-toggle {
+      background: transparent;
+      border: none;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    .theme-toggle:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 aria-label="Body Treatment App">POP</h1>
+    <button class="theme-toggle" aria-label="Toggle Dark Mode" onclick="toggleDarkMode()">Dark Mode</button>
+  </header>
+  <main class="main" id="content">
+    <!-- Content dynamically generated by JavaScript -->
+  </main>
+  <script>
+    // Data arrays for treatment options, durations, and body parts.
+    const optionPrices = [2, 2, 3, 4, 5, 5, 5, 5, 8, 9, 10, 15];
+    const optionLabels = ["Good", "VGood", "Poder Her", "Oil Her", "Water Her", "Dry Her", "Hot Her", "Cold Her", "All in One", "Gold", "Premium", "E Premium"];
+    const durationLabels = ["2 min", "6 min", "10 min", "14 min"];
+    const durationValues = [2, 6, 10, 14];
+    const bodyParts = ["Leg", "Hand", "Backbone", "Head"];
+
+    // Render the main menu (list of body parts)
+    function renderMainMenu() {
+      const content = document.getElementById("content");
+      let html = `<h2>Choose a Body Part for Treatment</h2>`;
+      html += `<div class="body-parts">`;
+      bodyParts.forEach(part => {
+        html += `<button class="body-part-btn" onclick="renderTreatmentView('${part}')" aria-label="Choose ${part} Treatments">${part} Treatments</button>`;
+      });
+      html += `</div>`;
+      content.innerHTML = html;
+    }
+
+    // Render the treatment view (form) for a selected body part
+    function renderTreatmentView(part) {
+      const content = document.getElementById("content");
+      let html = `<h2>${part} Treatment</h2>`;
+      html += `<form id="treatmentForm" aria-label="${part} treatment form">
+                <h3>Select Treatment Option</h3>`;
+      optionLabels.forEach(option => {
+        html += `<label>
+                   <input type="radio" name="option" value="${option}" required> ${option}
+                 </label><br>`;
+      });
+      html += `<h3>Select Duration</h3>
+               <select name="duration" required>
+                 ${durationLabels.map(duration => `<option value="${duration}">${duration}</option>`).join('')}
+               </select><br>
+               <button type="submit">Calculate</button>
+               </form>
+               <button class="back-btn" onclick="renderMainMenu()">Back to Menu</button>`;
+      content.innerHTML = html;
+
+      // Handle form submission to calculate the booking result
+      document.getElementById("treatmentForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const selectedOption = formData.get("option");
+        const selectedDuration = formData.get("duration");
+
+        // Calculate total cost based on the selected treatment option and duration.
+        const optionIndex = optionLabels.indexOf(selectedOption);
+        const durationIndex = durationLabels.indexOf(selectedDuration);
+        const price = optionPrices[optionIndex];
+        const minutes = durationValues[durationIndex];
+        const total = price * minutes;
+
+        const now = new Date();
+        const bookingTime = now.toLocaleTimeString('en-US');
+
+        const result = {
+          pin: "123ABC",
+          option: selectedOption,
+          selected_duration: selectedDuration,
+          total: total,
+          booking_time: bookingTime
+        };
+
+        renderResultView(result);
+      });
+    }
+
+    // Render the booking result view
+    function renderResultView(result) {
+      const content = document.getElementById("content");
+      let html = `<div class="result">
+                    <h3>Booking Result</h3>
+                    <p><strong>Pin:</strong> ${result.pin}</p>
+                    <p><strong>Option:</strong> ${result.option}</p>
+                    <p><strong>Duration:</strong> ${result.selected_duration}</p>
+                    <p><strong>Total Cost:</strong> ₹${result.total}</p>
+                    <p><strong>Booking Time:</strong> ${result.booking_time}</p>
+                    <p><strong>It will be available in 10 minutes.</strong></p>
+                  </div>
+                  <button class="back-btn" onclick="renderMainMenu()">Back to Menu</button>`;
+      content.innerHTML = html;
+    }
+
+    // Toggle between light and dark mode.
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    window.onload = renderMainMenu;
+  </script>
+</body>
+</html>
