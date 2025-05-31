@@ -105,6 +105,10 @@
 
   <main class="main" id="content"></main>
 
+  <footer style="text-align: center; font-size: 0.8em; padding: 10px; color: gray;">
+    developer - prince
+  </footer>
+
   <script>
     const optionPrices = [2, 2, 3, 4, 5, 5, 5, 5, 8, 9, 10, 15];
     const optionLabels = ["Good", "VGood", "Poder Her", "Oil Her", "Water Her", "Dry Her", "Hot Her", "Cold Her", "All in One", "Gold", "Premium", "E Premium"];
@@ -190,9 +194,10 @@
       html += `<h3>Select Duration</h3>
                <select name="duration" required>
                  ${durationLabels.map(duration => `<option value="${duration}">${duration}</option>`).join('')}
-               </select><br>
-               <button type="submit">Calculate</button>
+               </select><br><br>
+               <button type="submit" class="back-btn">Calculate</button>
                </form>
+               <br>
                <button class="back-btn" onclick="renderMainMenu()">Back to Menu</button>`;
       content.innerHTML = html;
 
