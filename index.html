@@ -187,25 +187,30 @@
     function showPending() {
       const main = document.getElementById('content');
       main.innerHTML = `
-        <h2>Enter Code</h2>
+        <h2>Pending Numbers</h2>
+        <p><strong>Total:</strong> Mini = ${data.mini ?? 'None'} | Jaison = ${data.jaison ?? 'None'}</p>
+        <h3>Check Individual</h3>
+        <p>Enter password to see specific number:</p>
         <input type="password" id="pendingCode" placeholder="enter the password">
         <button onclick="validatePendingCode()">Submit</button>
+        <div id="individualResult"></div>
+        <button class="back-btn" onclick="renderMainMenu()">Back</button>
       `;
     }
 
     function validatePendingCode() {
       const code = document.getElementById('pendingCode').value;
-      if (code === '9495') {
-        const main = document.getElementById('content');
-        main.innerHTML = `
-          <h2>Pending Numbers</h2>
-          <p><strong>Mini:</strong> ${data.mini ?? 'None'}</p>
-          <p><strong>Jaison:</strong> ${data.jaison ?? 'None'}</p>
-          <button class="back-btn" onclick="renderMainMenu()">Back</button>
-        `;
+      let result = '';
+
+      if (code === '9544') {
+        result = `<p><strong>Mini:</strong> ${data.mini ?? 'None'}</p>`;
+      } else if (code === '9847') {
+        result = `<p><strong>Jaison:</strong> ${data.jaison ?? 'None'}</p>`;
       } else {
-        alert('Invalid code!');
+        result = `<p style="color:red;">Invalid code!</p>`;
       }
+
+      document.getElementById('individualResult').innerHTML = result;
     }
 
     function renderMainMenu() {
