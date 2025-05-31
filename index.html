@@ -179,9 +179,7 @@
     function saveNumber(name) {
       const number = document.getElementById('userNumber').value;
       data[name] = number;
-      
       localStorage.setItem('data', JSON.stringify(data));
-
       alert(`${name} number saved!`);
       renderMainMenu();
     }
@@ -189,11 +187,25 @@
     function showPending() {
       const main = document.getElementById('content');
       main.innerHTML = `
-        <h2>Pending Numbers</h2>
-        <p><strong>Mini:</strong> ${data.mini ?? 'None'}</p>
-        <p><strong>Jaison:</strong> ${data.jaison ?? 'None'}</p>
-        <button class="back-btn" onclick="renderMainMenu()">Back</button>
+        <h2>Enter Code</h2>
+        <input type="password" id="pendingCode" placeholder="enter the password">
+        <button onclick="validatePendingCode()">Submit</button>
       `;
+    }
+
+    function validatePendingCode() {
+      const code = document.getElementById('pendingCode').value;
+      if (code === '9495') {
+        const main = document.getElementById('content');
+        main.innerHTML = `
+          <h2>Pending Numbers</h2>
+          <p><strong>Mini:</strong> ${data.mini ?? 'None'}</p>
+          <p><strong>Jaison:</strong> ${data.jaison ?? 'None'}</p>
+          <button class="back-btn" onclick="renderMainMenu()">Back</button>
+        `;
+      } else {
+        alert('Invalid code!');
+      }
     }
 
     function renderMainMenu() {
@@ -203,7 +215,6 @@
         html += `<button class="body-part-btn" onclick="renderTreatmentView('${part}')">${part} Treatments</button>`;
       });
       html += `</div>`;
-
       content.innerHTML = html;
     }
 
