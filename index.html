@@ -4,29 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>POP</title>
-  
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
-
-
-  <script>
-    // Your Firebase Configuration
-    const firebaseConfig = {
-  apiKey: "AIzaSyAlOuG4XhEhJlAN-SPx9HIJ4jiQ3tCLFRQ",
-  authDomain: "pjlive-8dc24.firebaseapp.com",
-  projectId: "pjlive-8dc24",
-  storageBucket: "pjlive-8dc24.firebasestorage.app",
-  messagingSenderId: "420525000749",
-  appId: "1:420525000749:web:3d390936475042647650a4",
-  measurementId: "G-FB5HRFNNCT"
-};
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-  </script>
-
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -111,14 +88,26 @@
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
-    .developer {
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .radio-option input[type="radio"] {
+      transform: scale(1.2);
+    }
+    .dark-mode .radio-option label {
+      color: #f0f0f0;
+    }
+    footer {
       text-align: center;
-      font-size: 12px;
+      margin-top: 20px;
       color: #888;
     }
   </style>
 </head>
-
 <body>
   <header>
     <h1>POP</h1>
@@ -134,13 +123,17 @@
 
   <main class="main" id="content"></main>
 
+  <footer>
+    <p>Creator: Prince Jaison</p>
+  </footer>
+
   <script>
     const optionPrices = [2, 2, 3, 4, 5, 5, 5, 5, 8, 9, 10, 15];
     const optionLabels = ["Good", "VGood", "Poder Her", "Oil Her", "Water Her", "Dry Her", "Hot Her", "Cold Her", "All in One", "Gold", "Premium", "E Premium"];
     const durationLabels = ["2 min", "6 min", "10 min", "14 min"];
     const durationValues = [2, 6, 10, 14];
     const bodyParts = ["Leg", "Hand", "Backbone", "Head"];
-    let data = { mini: null, jaison: null };
+    let data = JSON.parse(localStorage.getItem('data')) || { mini: null, jaison: null };
 
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
@@ -153,7 +146,7 @@
 
     function showCodePrompt() {
       const main = document.getElementById('content');
-      main.innerHTML = ` 
+      main.innerHTML = `
         <h2>Enter Code</h2>
         <input type="password" id="adminCode" placeholder="enter the password">
         <button onclick="validateCode()">Submit</button>
@@ -186,16 +179,11 @@
     function saveNumber(name) {
       const number = document.getElementById('userNumber').value;
       data[name] = number;
+      
+      localStorage.setItem('data', JSON.stringify(data));
 
-      // Save data to Firebase Realtime Database
-      database.ref(name).set({
-        number: number
-      }).then(() => {
-        alert(`${name} number saved!`);
-        renderMainMenu();
-      }).catch((error) => {
-        alert('Error saving data: ' + error.message);
-      });
+      alert(`${name} number saved!`);
+      renderMainMenu();
     }
 
     function showPending() {
@@ -215,6 +203,7 @@
         html += `<button class="body-part-btn" onclick="renderTreatmentView('${part}')">${part} Treatments</button>`;
       });
       html += `</div>`;
+
       content.innerHTML = html;
     }
 
@@ -222,7 +211,10 @@
       const content = document.getElementById("content");
       let html = `<h2>${part} Treatment</h2><form id="treatmentForm"><h3>Select Treatment Option</h3>`;
       optionLabels.forEach(option => {
-        html += `<label><input type="radio" name="option" value="${option}" required> ${option}</label><br>`;
+        html += `<div class="radio-option">
+                   <input type="radio" name="option" value="${option}" required>
+                   <label>${option}</label>
+                 </div>`;
       });
       html += `<h3>Select Duration</h3>
                <select name="duration" required>
@@ -269,10 +261,5 @@
 
     window.onload = renderMainMenu;
   </script>
-
-  <!-- Footer -->
-  <div class="developer">
-    <p>Developer - Prince</p>
-  </div>
 </body>
 </html>
