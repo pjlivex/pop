@@ -188,7 +188,6 @@
       const main = document.getElementById('content');
       main.innerHTML = `
         <h2>Pending Numbers</h2>
-        <p><strong>Total:</strong> Mini = ${data.mini ?? 'None'} | Jaison = ${data.jaison ?? 'None'}</p>
         <h3>Check Individual</h3>
         <p>Enter password to see specific number:</p>
         <input type="password" id="pendingCode" placeholder="enter the password">
@@ -201,15 +200,13 @@
     function validatePendingCode() {
       const code = document.getElementById('pendingCode').value;
       let result = '';
-
       if (code === '9544') {
         result = `<p><strong>Mini:</strong> ${data.mini ?? 'None'}</p>`;
       } else if (code === '9847') {
         result = `<p><strong>Jaison:</strong> ${data.jaison ?? 'None'}</p>`;
       } else {
-        result = `<p style="color:red;">Invalid code!</p>`;
+        result = `<p>Invalid password!</p>`;
       }
-
       document.getElementById('individualResult').innerHTML = result;
     }
 
